@@ -1,20 +1,17 @@
+import pandas as pd
 import streamlit as st
-from joblib import load
 import os
 from dotenv import load_dotenv
-import pandas as pd
+
+from model_prod import cask_worth_predict
 
 load_dotenv()
 
-features = os.getenv("MODEL_FEATURES").split(",")
-y_variable = os.getenv("MODEL_Y_VARIABLE")
-transformation = os.getenv("MODEL_TRANSFORMATION")
-
+features = os.getenv("x_columns_all_features").split(",")
 features = [feature.replace('�', '') for feature in features]
 
-model = load("models/top1_model.pkl")
-
-# model.predict(X)[0]
+df_casks = pd.read_csv("C:\\Users\\joaov\\Documents\\Whisky Casks ETL\\gold\\casks_database__casks_valuation.csv")
+df_casks = df_casks[['auction_date', 'volume_12m', 'volume_6m', 'volume_3m']].drop_duplicates().sort_values('auction_date', ascending=False).head(1)
 
 st.set_page_config(layout='wide')
 
@@ -22,7 +19,7 @@ st.title('Cask Worth')
 
 st.subheader('Whisky Casks Valuation')
 
-st.space('large')
+st.space('large') 
 
 col_age, col_strength, col_bulk_litres, col_cask_type = st.columns(4, vertical_alignment='center')
 col_region, col_country, col_distillery, col_previous_spirit = st.columns(4, vertical_alignment='center')
@@ -88,24 +85,33 @@ if (evaluate_button) and all(var is not None for var in vars_list):
     df['age'] = age
     df['strength'] = strength
     df['bulk_litres'] = bulk_litres
-    df[f'distillery_{distillery}'] = 1
-    df[f'region_{region}'] = 1
-    df[f'country_{country}'] = 1
-    df[f'cask_type_{cask_type}'] = 1
-    df[f'previous_spirit_{previous_spirit}'] = 1
     df['rla'] = rla
     df['bottles_at_cask_strength'] = bottles_at_cask_strength
 
-    print(df)
+    df['volume_12m'] = df_casks['volume_12m'].values[0]
+    df['volume_6m'] = df_casks['volume_6m'].values[0]
+    df['volume_3m'] = df_casks['volume_3m'].values[0]
 
-    model.predict(df)
+    if f'distillery_{distillery}' in df.columns:
+        df[f'distillery_{distillery}'] = 1
+    if f'region_{region}' in df.columns:
+        df[f'region_{region}'] = 1
+    if f'country_{country}' in df.columns:
+        df[f'country_{country}'] = 1
+    if f'cask_type_{cask_type}' in df.columns:
+        df[f'cask_type_{cask_type}'] = 1
+    if f'previous_spirit_{previous_spirit}' in df.columns:
+        df[f'previous_spirit_{previous_spirit}'] = 1
+    
+    casks_value = cask_worth_predict(df)
 
-print('')
+    st.space('small')
 
+    col_image, col_value = st.columns([1, 4], vertical_alignment='center')
 
+    with col_image:
+        st.image('images\cask_image.png')
 
-
-
-
-
-
+    with col_value:
+        st.metric('Suggested value', f'£ {casks_value}')
+        st.badge(f"Suggested value: £ {casks_value}", color="orange", width='content')

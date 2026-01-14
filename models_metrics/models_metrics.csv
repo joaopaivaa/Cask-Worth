@@ -1,0 +1,7 @@
+ranking_n_rmse_range,ranking_n_rmse_mean,model,model_object,y_variable,features,transformation,n_rmse_mean,n_rmse_range,r2,overall_ranking,overall_score
+2,0,Ensemble Model,,,,,0.32,0.12,0.77,,2
+0,3,Gradient Boost,"GradientBoostingRegressor(max_depth=5, min_samples_leaf=4, min_samples_split=10,
+                          n_estimators=200, random_state=1)",Inflation Adjusted Hammer Price per Litre of Alcohol Times Age,All features,Log transformation,0.4881,0.052,0.9082,2.0,3
+1,2,Random Forest,"RandomForestRegressor(max_features='sqrt', random_state=1)",Inflation Adjusted Hammer Price per Litre of Alcohol,All features,No transformation,0.3894,0.0946,0.804,0.0,3
+3,1,Gradient Boost,"GradientBoostingRegressor(min_samples_split=10, n_estimators=200,
+                          random_state=1)",Inflation Adjusted Hammer Price,Correlation selected features,Box-Cox transformation,0.3369,0.1274,0.8158,1.0,4

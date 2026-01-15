@@ -107,11 +107,4 @@ if (evaluate_button) and all(var is not None for var in vars_list):
 
     st.space('small')
 
-    col_image, col_value = st.columns([1, 4], vertical_alignment='center')
-
-    with col_image:
-        st.image('images\cask_image.png')
-
-    with col_value:
-        st.metric('Suggested value', f'£ {casks_value}')
-        st.badge(f"Suggested value: £ {casks_value}", color="orange", width='content')
+    st.metric('Suggested value', f'£{casks_value:,.2f}')

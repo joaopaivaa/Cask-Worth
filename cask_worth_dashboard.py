@@ -10,7 +10,7 @@ load_dotenv()
 features = os.getenv("x_columns_all_features").split(",")
 features = [feature.replace('�', '') for feature in features]
 
-df_casks = pd.read_csv("C:\\Users\\joaov\\Documents\\Whisky Casks ETL\\gold\\casks_database__casks_valuation.csv")
+df_casks = pd.read_csv("database\\casks_database__casks_valuation.csv")
 df_casks = df_casks[['auction_date', 'volume_12m', 'volume_6m', 'volume_3m']].drop_duplicates().sort_values('auction_date', ascending=False).head(1)
 
 st.set_page_config(layout='wide')

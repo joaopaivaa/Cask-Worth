@@ -1,8 +1,9 @@
 ranking_n_rmse_range,ranking_n_rmse_mean,model,model_object,n_rmse_mean,n_rmse_range,r2,overall_ranking,overall_score
-0,1,Random Forest,"RandomForestRegressor(max_depth=10, max_features='log2', n_estimators=25,
-                      random_state=1)",0.1106,0.1242,0.739,0.0,1
-2,0,Ensemble Model,,0.11,0.13,0.69,,2
-1,2,Gradient Boost,"GradientBoostingRegressor(learning_rate=0.05, min_samples_leaf=4,
-                          n_estimators=200, random_state=1)",0.1153,0.1294,0.716,1.0,3
-3,3,Artificial Neural Network,"MLPRegressor(activation='tanh', alpha=0.01, hidden_layer_sizes=(50,),
-             learning_rate_init=0.025, max_iter=2000, random_state=1)",0.1201,0.1349,0.6916,2.0,6
+0,1,Random Forest,"RandomForestRegressor(max_depth=10, max_features='sqrt', min_samples_split=10,
+                      n_estimators=250, random_state=1)",0.1126,0.1264,0.7292,0.0,1
+2,0,Ensemble Model,,0.11,0.13,0.68,,2
+1,2,Gradient Boost,"GradientBoostingRegressor(learning_rate=0.01, max_depth=5, min_samples_leaf=4,
+                          min_samples_split=10, n_estimators=250,
+                          random_state=1)",0.1151,0.1292,0.7173,1.0,3
+3,3,Artificial Neural Network,"MLPRegressor(activation='tanh', learning_rate_init=0.025, max_iter=2000,
+             random_state=1)",0.1218,0.1367,0.6834,2.0,6

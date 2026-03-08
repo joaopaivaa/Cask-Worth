@@ -71,7 +71,6 @@ if (evaluate_button) and all(var is not None for var in vars_list):
     df[cask_filling_columns] = 0
 
     df['age'] = age
-    df['strength'] = strength
     df['rla'] = rla
 
     if f'distillery_{distillery}' in df.columns:

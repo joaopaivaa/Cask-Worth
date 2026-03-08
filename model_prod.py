@@ -20,7 +20,7 @@ def ensemble_model_predict(x_input):
 
         model = load(f'models/top{i+1}_model.pkl')
 
-        X = x_input
+        X = x_input.drop(columns=['rla'])
 
         if model_info['model'] in ['Linear Regression', 'Support Vector Regression', 'Artificial Neural Network']:
             X = scaler_x.transform(X)
@@ -46,7 +46,7 @@ def best_model_predict(x_input):
 
     model = load(f'models/top1_model.pkl')
 
-    X = x_input
+    X = x_input.drop(columns=['rla'])
 
     if model_info['model'] in ['Linear Regression', 'Support Vector Regression', 'Artificial Neural Network']:
         X = scaler_x.transform(X)
@@ -55,6 +55,8 @@ def best_model_predict(x_input):
 
     y_pred = inv_boxcox(y_pred, fitted_lambda)
     y_pred = y_pred * x_input['rla'].values
+
+    y_pred = y_pred[0]
 
     y_pred = round(y_pred, 2)
 

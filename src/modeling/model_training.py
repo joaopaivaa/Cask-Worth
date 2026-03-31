@@ -32,7 +32,7 @@ def linear_regression_best_model(x_train_scaled, x_test_scaled, y_train):
 
 def random_forest_best_model(x_train, x_test, y_train):
 
-    model = RandomForestRegressor(random_state=1)
+    model = RandomForestRegressor(random_state=2706)
 
     param_grid = {
         'n_estimators': [25, 50, 100, 200, 250],
@@ -88,7 +88,7 @@ def svr_best_model(x_train_scaled, x_test_scaled, y_train):
 
 def gradient_boost_best_model(x_train, x_test, y_train):
 
-    model = GradientBoostingRegressor(random_state=1)
+    model = GradientBoostingRegressor(random_state=2706)
 
     param_grid = {
         'n_estimators': [25, 50, 100, 200, 250],
@@ -133,7 +133,7 @@ def model_performance_analysis(model, model_name, y_pred, y_test, fitted_lambda)
                            'r2': r2})
 
 
-df = pd.read_csv("database/casks_database.csv")
+df = pd.read_csv("data/gold_layer/casks_database.csv")
 
 df = df[df['strength'] >= 40]
 
@@ -158,11 +158,6 @@ df = df[['age', 'distillery_macallan', 'distillery_springbank', 'region_campbelt
          'cask_type_butt', 'cask_filling_second_fill', 'inf_adj_hammer_price_per_litre_of_alcohol']]
 
 y_boxcox, fitted_lambda = boxcox(df['inf_adj_hammer_price_per_litre_of_alcohol'])
-
-plt.figure(figsize=(8, 4))
-plt.hist(y_boxcox, color='green', alpha=0.5)
-plt.title('Box-Cox Inflation Adjusted Hammer Price per Litre of Alcohol')
-plt.show()
 
 df['inf_adj_hammer_price_per_litre_of_alcohol_boxcox'] = y_boxcox
 
@@ -292,8 +287,8 @@ df_ensemble_model_top3_models = df_ensemble_model_top3_models.sort_values('overa
 
 print(df_ensemble_model_top3_models)
 
-df_ensemble_model_top3_models.to_csv('models_metrics/models_metrics.csv', index=False)
+df_ensemble_model_top3_models.to_csv('models/models_metrics/models_metrics.csv', index=False)
 
-dump(fitted_lambda, 'variables_for_production_model/fitted_lambda.pkl')
-dump(scaler_x, 'variables_for_production_model/scaler_x.pkl')
-dump(x_columns_features, 'variables_for_production_model/x_columns_features.pkl')
+dump(fitted_lambda, 'models/variables_for_production_model/fitted_lambda.pkl')
+dump(scaler_x, 'models/variables_for_production_model/scaler_x.pkl')
+dump(x_columns_features, 'models/variables_for_production_model/x_columns_features.pkl')

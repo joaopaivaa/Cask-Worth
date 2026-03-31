@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-from model_prod import cask_worth_predict
+from src.modeling.model_prod import cask_worth_predict
 
 from joblib import load
 

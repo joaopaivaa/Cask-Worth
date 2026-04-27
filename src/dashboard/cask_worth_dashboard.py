@@ -10,7 +10,7 @@ from src.modeling.model_prod import cask_worth_predict
 
 from joblib import load
 
-x_columns_features = load('variables_for_production_model/x_columns_features.pkl')
+x_columns_features = load('models/variables_for_production_model/x_columns_features.pkl')
 x_columns_features = [feature.replace('�', '') for feature in x_columns_features]
 
 st.set_page_config(layout='wide')
@@ -55,7 +55,7 @@ if (evaluate_button) and all(var is not None for var in vars_list):
 
     rla = bulk_litres * strength / 100
 
-    dim_distilleries = pd.read_csv('database/dimension/dim_distilleries_info.csv', sep=';')
+    dim_distilleries = pd.read_csv('data/dimensions/dim_distilleries_info.csv', sep=';')
 
     distillery_infos = dim_distilleries[dim_distilleries['Distillery'].str.lower().replace(" ", "_") == distillery]
     region = distillery_infos['Region'].values[0] if len(distillery_infos) > 0 else None

@@ -2,10 +2,10 @@ import pandas as pd
 from scipy.special import inv_boxcox
 from joblib import load
 
-fitted_lambda = load('variables_for_production_model/fitted_lambda.pkl')
-scaler_x = load('variables_for_production_model/scaler_x.pkl')
+fitted_lambda = load('models/variables_for_production_model/fitted_lambda.pkl')
+scaler_x = load('models/variables_for_production_model/scaler_x.pkl')
 
-models_metrics = pd.read_csv('models_metrics/models_metrics.csv')
+models_metrics = pd.read_csv('models/models_metrics/models_metrics.csv')
 
 df_top3_models_metrics = models_metrics[models_metrics['model'] != 'Ensemble Model'].reset_index(drop=True)
 df_top3_models_metrics = df_top3_models_metrics.sort_values('overall_ranking').reset_index(drop=True)

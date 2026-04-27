@@ -287,8 +287,8 @@ df_ensemble_model_top3_models = df_ensemble_model_top3_models.sort_values('overa
 
 print(df_ensemble_model_top3_models)
 
-df_ensemble_model_top3_models.to_csv('models/models_metrics/models_metrics.csv', index=False)
+df_ensemble_model_top3_models.to_csv('models/models/models_metrics/models_metrics.csv', index=False)
 
-dump(fitted_lambda, 'models/variables_for_production_model/fitted_lambda.pkl')
-dump(scaler_x, 'models/variables_for_production_model/scaler_x.pkl')
-dump(x_columns_features, 'models/variables_for_production_model/x_columns_features.pkl')
+dump(fitted_lambda, 'models/models/variables_for_production_model/fitted_lambda.pkl')
+dump(scaler_x, 'models/models/variables_for_production_model/scaler_x.pkl')
+dump(x_columns_features, 'models/models/variables_for_production_model/x_columns_features.pkl')

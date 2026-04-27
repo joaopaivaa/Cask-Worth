@@ -20,7 +20,7 @@ scaler_x_standard = load('scalers/scaler_x_standard.pkl')
 scaler_x_per_rla = load('scalers/scaler_x_per_rla.pkl')
 scaler_x_per_rla_times_age = load('scalers/scaler_x_per_rla_times_age.pkl')
 
-models_metrics = pd.read_csv('models_metrics/models_metrics.csv')
+models_metrics = pd.read_csv('models/models_metrics/models_metrics.csv')
 
 df_top3_models_metrics = models_metrics[models_metrics['model'] != 'Ensemble Model'].reset_index(drop=True)
 df_top3_models_metrics = df_top3_models_metrics.sort_values('overall_ranking').reset_index(drop=True)

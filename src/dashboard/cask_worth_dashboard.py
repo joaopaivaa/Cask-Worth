@@ -13,6 +13,10 @@ from joblib import load
 x_columns_features = load('models/variables_for_production_model/x_columns_features.pkl')
 x_columns_features = [feature.replace('�', '') for feature in x_columns_features]
 
+dim_distilleries = pd.read_csv('data/dimensions/dim_distilleries_info.csv', sep=';')
+
+casks_database = pd.read_csv('data/gold_layer/casks_database.csv', sep=';')
+
 st.set_page_config(layout='wide')
 
 st.title('Cask Worth')
@@ -34,15 +38,15 @@ with col_bulk_litres:
     bulk_litres = st.number_input('Bulk Litres (L)', min_value=0.00, max_value=None, value=None, step=0.01)
 
 with col_distillery:
-    distillery = st.text_input('Distillery', value=None)
+    distillery = st.selectbox('Distillery', options=dim_distilleries['Distillery'].unique())
     distillery = distillery.lower().replace(" ", "_") if (distillery != None) else distillery
 
 with col_cask_type:
-    cask_type = st.text_input('Cask Type', value=None)
+    cask_type = st.selectbox('Cask Type', options=casks_database['Cask Type'].unique())
     cask_type = cask_type.lower().replace(" ", "_") if (cask_type != None) else cask_type
 
 with col_cask_filling:
-    cask_filling = st.text_input('Cask Filling', value=None)
+    cask_filling = st.selectbox('Cask Filling', options=casks_database['Cask Filling'].unique())
     cask_filling = cask_filling.lower().replace(" ", "_") if (cask_filling != None) else cask_filling
 
 st.space('small')
@@ -54,8 +58,6 @@ vars_list = [age, strength, bulk_litres, distillery, cask_type, cask_filling]
 if (evaluate_button) and all(var is not None for var in vars_list):
 
     rla = bulk_litres * strength / 100
-
-    dim_distilleries = pd.read_csv('data/dimensions/dim_distilleries_info.csv', sep=';')
 
     distillery_infos = dim_distilleries[dim_distilleries['Distillery'].str.lower().replace(" ", "_") == distillery]
     region = distillery_infos['Region'].values[0] if len(distillery_infos) > 0 else None

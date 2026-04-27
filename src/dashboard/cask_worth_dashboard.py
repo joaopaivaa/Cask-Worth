@@ -13,9 +13,9 @@ from joblib import load
 x_columns_features = load('models/variables_for_production_model/x_columns_features.pkl')
 x_columns_features = [feature.replace('�', '') for feature in x_columns_features]
 
-dim_distilleries = pd.read_csv('data/dimensions/dim_distilleries_info.csv', sep=';')
+dim_distilleries = pd.read_csv('./data/dimensions/dim_distilleries_info.csv', sep=';')
 
-casks_database = pd.read_csv('data/gold_layer/casks_database.csv', sep=';')
+casks_database = pd.read_csv('./data/gold_layer/casks_database.csv', sep=',')
 
 st.set_page_config(layout='wide')
 
@@ -38,15 +38,15 @@ with col_bulk_litres:
     bulk_litres = st.number_input('Bulk Litres (L)', min_value=0.00, max_value=None, value=None, step=0.01)
 
 with col_distillery:
-    distillery = st.selectbox('Distillery', options=dim_distilleries['Distillery'].unique())
+    distillery = st.selectbox('Distillery', options=dim_distilleries['Distillery'].dropna().unique(), index=None)
     distillery = distillery.lower().replace(" ", "_") if (distillery != None) else distillery
 
 with col_cask_type:
-    cask_type = st.selectbox('Cask Type', options=casks_database['Cask Type'].unique())
+    cask_type = st.selectbox('Cask Type', options=casks_database['cask_type'].dropna().unique(), index=None)
     cask_type = cask_type.lower().replace(" ", "_") if (cask_type != None) else cask_type
 
 with col_cask_filling:
-    cask_filling = st.selectbox('Cask Filling', options=casks_database['Cask Filling'].unique())
+    cask_filling = st.selectbox('Cask Filling', options=casks_database['cask_filling'].dropna().unique(), index=None)
     cask_filling = cask_filling.lower().replace(" ", "_") if (cask_filling != None) else cask_filling
 
 st.space('small')
